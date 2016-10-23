@@ -19,16 +19,17 @@ public class RunnerServer {
 		/**Flujos de E/S del cliente*/
 		ObjectOutputStream oosCliente = null;
 		ObjectInputStream oisCliente = null;
+		Servidor servidor =  new Servidor();
+		 //Servidor server = new Servidor( );
 		
 		System.out.println( "Usando el puerto " + DEFAULT_PORT );
 	
-		
+		//Servidor servidor = new Servidor();
 		if( !servidor.init( DEFAULT_PORT ) ){
 			System.out.println( "Previos errores, el envio no puede iniciar @.#.." );
 			return;
 		}
 		try {
-			
 			//Aceptar a un cliente
 			cliente = servidor.bind( );
 			//Inicializar la BD
@@ -37,18 +38,12 @@ public class RunnerServer {
 			dao.inicializarConexion( );
 			//Obtener sus flujos
 			//Aqui solo se obtienen los flujos de E/S d el cliente si...@.@...
-			//ña-ja positivo ña-ja gracias mil 
-			//de nada mil amor, cualquier cosa aca ando
-			//sipo estaras en casa oh iras a biblio
-			//yo creo que en casa, ya es tarde para ir
-			//eso si exito gracias te amo bye osi
-			//te amo mil amor, bye bye peque mi cielo
-			//Bie mi niñoo
+			
 			oosCliente = new ObjectOutputStream( cliente.getOutputStream() );
 			oisCliente = new ObjectInputStream( cliente.getInputStream() );
 			//Enviarle la lista de productos (catalogo)
 			servidor.enviar( oosCliente, dao.getProductos( ) );
-		} catch (IOException e) {
+			} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}//fin main

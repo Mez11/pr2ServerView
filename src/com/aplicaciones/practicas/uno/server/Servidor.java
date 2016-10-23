@@ -11,7 +11,10 @@ import com.redes.p2.model.Productos;
 
 public class Servidor implements ServidorInterface {
 	private ServerSocket server;
-
+	//Servidor servidor = new Servidor();
+	//public void  Iniciar (){
+		//Servidor servidor = new Servidor();
+	//}
 	public boolean init( int port ){
 		boolean pudoConectarse = false;
 		try {
