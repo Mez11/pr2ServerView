@@ -1,22 +1,18 @@
 package com.redes.p2.cliente.view;
 
-import java.awt.EventQueue;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
 import com.redes.p2.dao.ProductosDao;
 import com.redes.p2.model.Productos;
 import com.redes.p2.servidor.view.CatalogoDeProductos;
-
-
-import javax.swing.JButton;
-import javax.swing.JSpinner;
 
 public class DetalleProducto {
 	
@@ -48,8 +44,8 @@ public class DetalleProducto {
 	/**
 	 * Create the application.
 	 */
-	public DetalleProducto() {
-		//initialize();
+	public DetalleProducto( /*Productos producto, CatalogoDeProductos principal*/ ) {
+		//init( producto, principal );listo
 	}
 
 	/**
