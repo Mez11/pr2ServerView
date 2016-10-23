@@ -64,7 +64,7 @@ public class ProductosDao {
 			return list;
 		}//end
 		
-	   public Productos getEventoById(Integer id){
+	   public Productos getProductoById(Integer id){
 	
 		   List<Productos> list = null;
 		   try {

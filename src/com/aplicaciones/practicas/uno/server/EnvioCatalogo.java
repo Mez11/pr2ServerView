@@ -24,5 +24,5 @@ public class EnvioCatalogo {
         list = miProducto.getProductos( );
         System.out.println( "Cargando vista de catalogos..." );
         catalogoDeProductos.init( list );
-	}//end main
+	}//end main*/
 }//end EnvioCatalogo

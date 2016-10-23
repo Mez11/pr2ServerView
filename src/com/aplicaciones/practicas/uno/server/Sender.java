@@ -12,12 +12,14 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketOptions;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
+import com.redes.p2.dao.ProductosDao;
 import com.redes.p2.model.Productos;
+import com.redes.p2.servidor.view.CatalogoDeProductos;
 
 /**
  *  Esta clase realiza el envio  al 
@@ -171,9 +173,27 @@ public class Sender implements Runnable {
                         
                         System.out.println("Conectando CLIENTE");
                         
-                        List list = null;
+                       // List list = null;
+                        List<Productos> list = null;
                         ois= new ObjectInputStream(socket.getInputStream());
-                        list=(List) ois.readObject();
+                        list= new ArrayList<Productos>();
+                        ois.readObject();
+                        //EnvioCatalogo
+                        ProductosDao miProducto = new ProductosDao( );
+                       // List<Productos> list = null;
+                        CatalogoDeProductos catalogoDeProductos = new CatalogoDeProductos();
+                        
+                        System.out.println("Conectando a la base de datos");
+                        miProducto.inicializarConexion( );
+                        
+                        System.out.println("Obteniendo catalogos");
+                        list = miProducto.getProductos( );
+                        System.out.println( "Cargando vista de catalogos..." );
+                        catalogoDeProductos.init( list );
+                        
+                        
+                        
+                        //list=(List) ois.readObject();
                         //CatalogoProductos miCatalago = new CatalogoProductos(list);
                         System.out.println(list);
                         // while(socket != null ){
