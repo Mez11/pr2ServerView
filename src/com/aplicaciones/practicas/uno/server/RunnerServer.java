@@ -20,8 +20,11 @@ public class RunnerServer {
 		ObjectOutputStream oosCliente = null;
 		ObjectInputStream oisCliente = null;
 		Servidor servidor =  new Servidor();
-		 //Servidor server = new Servidor( );
-		
+		//holi holi...ja desacomede la vista 
+		//La vista del cliente? del IDE gracias @.@. 
+		//Entonces, aqui ya esta iniciado el servidr; no?
+		//Sipoo ya funciona ja aunque no le llega a las clase de CLiente
+		//Como inicias a client?
 		System.out.println( "Usando el puerto " + DEFAULT_PORT );
 	
 		//Servidor servidor = new Servidor();
