@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
+import com.redes.p2.cliente.BaseDatosCarrito;
 import com.redes.p2.model.Productos;
 
 public class CatalogoProductos {
@@ -25,7 +26,7 @@ public class CatalogoProductos {
 	
 
 	
-	public void init(List<Productos> productosList  ) {
+	public void init( List<Productos> productosList  ) {
 		frmCatalogoDeProductos = new JFrame();
 		frmCatalogoDeProductos.setTitle("Catalogo de productos @.@");
 		frmCatalogoDeProductos.setBounds(100, 100, 450, 300);
@@ -107,7 +108,7 @@ public class CatalogoProductos {
 		});
 		
 		
-		
+		frmCatalogoDeProductos.setVisible( true );
 		
 	}
 
@@ -121,6 +122,7 @@ public class CatalogoProductos {
 		aux.setIdProductos( 10 );
 		aux.setNombre( "Soy un producto de prueba" );
 		aux.setExistencias( 10 );
+		aux.setPrecio( 20.3 );
 		return aux;
 	}
 	
@@ -131,6 +133,7 @@ public class CatalogoProductos {
 	}
 
 	private void onSeeCar(){
+		BaseDatosCarrito.agregar( crearProductoDePrueba( ) );
 		new CarritoCompra();
 		this.dispose();
 		frmCatalogoDeProductos.dispose();
