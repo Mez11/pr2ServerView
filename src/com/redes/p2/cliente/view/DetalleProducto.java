@@ -13,8 +13,8 @@ import javax.swing.JTextField;
 
 import com.redes.p2.cliente.BaseDatosCarrito;
 import com.redes.p2.cliente.ConexionConServidor;
-import com.redes.p2.dao.ProductosDao;
 import com.redes.p2.model.Productos;
+import com.redes.p2.servidor.dao.ProductosDao;
 
 public class DetalleProducto {
 	

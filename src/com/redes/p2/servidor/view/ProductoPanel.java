@@ -8,8 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import com.redes.p2.dao.ProductosDao;
 import com.redes.p2.model.Productos;
+import com.redes.p2.servidor.dao.ProductosDao;
 import com.redes.p2.utis.ImageUtils;
 
 public class ProductoPanel extends JPanel {

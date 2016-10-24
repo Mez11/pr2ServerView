@@ -12,9 +12,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-
-import com.redes.p2.dao.ProductosDao;
 import com.redes.p2.model.Productos;
+import com.redes.p2.servidor.dao.ProductosDao;
 
 import javax.swing.JButton;
 
