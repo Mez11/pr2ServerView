@@ -4,7 +4,6 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,7 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import com.redes.p2.cliente.ConexionConServidor;
-import com.redes.p2.model.Productos;
 
 public class ConexionCliente {
 
@@ -90,15 +88,8 @@ public class ConexionCliente {
 		
 		try {
 			ConexionConServidor.inicializarCliente(HOST, port);
-			//leer lista del servidor
-			List< Productos> list = ConexionConServidor.getCatalogoRemoto( );
-			System.out.println( "Catalogo recibido" );
-			System.out.println("Se realizo la conexion de cliente");
-			System.out.println( "datos recibidos:" );
-			for( Productos producto : list ){
-				System.out.println( producto.getNombre( ) );
-			}
-			ConexionConServidor.cerrar( );
+			//leer lista del servidor y enviarsela a catalogoProductos
+			new CatalogoProductos( ).init( ConexionConServidor.getCatalogoRemoto( ) );
 		} catch (IOException | ClassNotFoundException e1) {
 			e1.printStackTrace();
 		}
