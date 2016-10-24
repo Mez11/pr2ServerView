@@ -31,6 +31,7 @@ public class RunnerServer {
 			//Aceptar a un cliente
 			System.out.println( "A la espera de un cliente..." );
 			servidor.bind( );
+			System.out.println( "Cliente recibido" );
 			//Inicializar la BD
 			while( true ){
 				if( !procesarOperacion( servidor, dao ) ){
@@ -45,15 +46,20 @@ public class RunnerServer {
 	private static boolean procesarOperacion( Servidor servidor, ProductosDao dao ) throws IOException{
 		int codigoOperacion;
 		//Obtener el codigo de operaciones
+		System.out.println( "Obteniendo el codigo de operacion..." );
 		codigoOperacion = servidor.getCodigoOperacion( );
+		System.out.println( "Codigo recibido: " + codigoOperacion );
 		if( codigoOperacion == Operaciones.OP_CATALOGO ){
+			System.out.println( "Enviando lista de productos..." );
 			//Debemos enviar el catalogo del dao
 			servidor.enviar( dao.getProductos( ) );
 		}
 		else if( codigoOperacion == Operaciones.OP_COMPRA ){
 			//Implementar la logica de confirmacion compra
+			System.out.println( "Recibiendo compra @.@...." );
 		}
 		else if( codigoOperacion == Operaciones.OP_CERRAR_CONEXION ){
+			System.out.println("Cerrando conexion @.@.!!");
 			servidor.cerrar( );
 			//break;
 			return false;
