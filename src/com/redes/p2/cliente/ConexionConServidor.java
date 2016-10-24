@@ -43,6 +43,7 @@ public class ConexionConServidor {
 	}
 	
 	public static void cerrar() throws IOException{
+		salida.writeInt( Operaciones.OP_CERRAR_CONEXION );
 		salida.close();
 		entrada.close();
 		cliente.close();
