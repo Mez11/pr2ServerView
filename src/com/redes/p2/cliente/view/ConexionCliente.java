@@ -76,31 +76,33 @@ public class ConexionCliente {
 		JButton btnConectarse = new JButton("Conectarse");
 		btnConectarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int port= Integer.parseInt(tfDireccion.getText());
-				
-				/**Partes de sockets @_&**/
-				
-				try {
-					ConexionConServidor.inicializarCliente(HOST, port);
-					//leer lista del servidor
-					List< Productos> list = ConexionConServidor.getCatalogoRemoto( );
-					//"list" ya contiene los datos recibidos del server...
-					//El cliente tiene las operaciones de "read" y "write",
-					//así como el servidor tiene sus operaciones de "read" y "write"
-					//El cliente puede leer(recibir) datos del servidor y 
-					//escribir (mandar) datos al servidor
-					System.out.println("Se realizo la conexion de cliente");
-					System.out.println( "datos recibidos:" );
-					for( Productos producto : list ){
-						System.out.println( producto.getNombre( ) );
-					}
-				} catch (IOException | ClassNotFoundException e1) {
-					e1.printStackTrace();
-				}
-				frmConexionCliente.dispose();
+				onConnectar( );
 			}
 		});
 		btnConectarse.setBounds(174, 142, 117, 25);
 		frmConexionCliente.getContentPane().add(btnConectarse);
 	}
-}
+	
+	private void onConnectar( ){
+		int port= Integer.parseInt(tfDireccion.getText());
+		
+		/**Partes de sockets @_&**/
+		
+		try {
+			ConexionConServidor.inicializarCliente(HOST, port);
+			//leer lista del servidor
+			List< Productos> list = ConexionConServidor.getCatalogoRemoto( );
+			System.out.println( "Catalogo recibido" );
+			System.out.println("Se realizo la conexion de cliente");
+			System.out.println( "datos recibidos:" );
+			for( Productos producto : list ){
+				System.out.println( producto.getNombre( ) );
+			}
+			ConexionConServidor.cerrar( );
+		} catch (IOException | ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		frmConexionCliente.dispose();
+	}
+	
+}//fin clase

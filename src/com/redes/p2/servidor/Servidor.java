@@ -40,6 +40,7 @@ public class Servidor implements ServidorInterface {
 	
 	public void enviar( List<Productos> productos ) throws IOException{
 		salidaACliente.writeObject( productos );
+		salidaACliente.flush( );
 	}
 		
 	@SuppressWarnings("unchecked")
