@@ -2,15 +2,12 @@ package com.aplicaciones.practicas.uno.server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.EOFException;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.net.SocketException;
-import java.net.SocketOptions;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +20,7 @@ import com.redes.p2.servidor.view.CatalogoDeProductos;
 
 /**
  *  Esta clase realiza el envio  al 
- *  servidor
+ *  servidor Ya no se implementara @.@.
  */
 public class Sender implements Runnable {
 	private Socket socket;
