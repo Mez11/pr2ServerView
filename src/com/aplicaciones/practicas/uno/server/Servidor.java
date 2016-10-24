@@ -11,6 +11,9 @@ import com.redes.p2.model.Productos;
 
 public class Servidor implements ServidorInterface {
 	private ServerSocket server;
+	private Socket cliente;
+	private ObjectInputStream entradaDeCliente;
+	private ObjectOutputStream salidaACliente;
 	
 	public boolean init( int port ){
 		boolean pudoConectarse = false;
@@ -24,25 +27,23 @@ public class Servidor implements ServidorInterface {
 	}
 
 	@Override
-	public Socket bind() throws IOException {
-		return server.accept( ); //Accepts a client
+	public void bind() throws IOException {
+		cliente = server.accept( );
+		entradaDeCliente = new ObjectInputStream( cliente.getInputStream() );
+		salidaACliente = new ObjectOutputStream( cliente.getOutputStream() );
 	}
 	
-	
-	
-	public void enviar( ObjectOutputStream oos, List<Productos> productos ) throws IOException{
-		oos.writeObject( productos );
+	public int getCodigoOperacion( ) throws IOException{
+		return entradaDeCliente.readInt( );
 	}
 	
-	public void enviar( ObjectOutputStream oos, Productos producto ) throws IOException{
-		oos.writeObject( producto );
+	public void enviar( List<Productos> productos ) throws IOException{
+		salidaACliente.writeObject( productos );
 	}
 		
-	@Override
-	public Productos readProducto( ObjectInputStream ois ) throws IOException, ClassNotFoundException {
-		Productos productos = null;
-		productos = (Productos)ois.readObject( ); 
-		return productos;
+	@SuppressWarnings("unchecked")
+	public List<Productos> getCarrito( ) throws ClassNotFoundException, IOException{
+		return (List<Productos>) entradaDeCliente.readObject( );
 	}
 
 }
