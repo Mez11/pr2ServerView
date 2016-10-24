@@ -2,6 +2,7 @@ package com.redes.p2.cliente.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -18,39 +19,13 @@ public class CatalogoProductos {
 	private JTextField  nombreTf;
 	private JTextField  precioTf;
 	private JTextField  existenciasTf;
+	private JLabel lblImagen;
+	//Variable para guardar el archivo que el usuario haya elgido
+	private File imageFile;
+	
 
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CatalogoProductos window = new CatalogoProductos();
-					window.frmCatalogoDeProductos.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
-
-	/**
-	 * Create the application.
-	 */
-	//public CatalogoProductos() {
-		//initialize();
-	//}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	//detalleProducto para que es?
-	//Es para poder instanciar DetalleProducto en Boton Comprar
-	//Lo quitare :)
-	//Metodo "init" debe ser publico para que pueda ser llamado
-	//desde otras clases
-	public void init(List<Productos> productos  ) {
+	
+	public void init(List<Productos> productosList  ) {
 		frmCatalogoDeProductos = new JFrame();
 		frmCatalogoDeProductos.setTitle("Catalogo de productos @.@");
 		frmCatalogoDeProductos.setBounds(100, 100, 450, 300);
@@ -58,15 +33,18 @@ public class CatalogoProductos {
 		SpringLayout springLayout = new SpringLayout();
 		frmCatalogoDeProductos.getContentPane().setLayout(springLayout);
 		
-		if(!productos.isEmpty()){
+		if(!productosList.isEmpty()){
 			//ProductoPanel produc = new ProductoPanel(productos.containsAll(productos));
 		}
-		
+		//ProductoPanel prueba = new ProductoPanel( productosList.get( productosList.size( ) - 1 ), this );
+		//prueba.setBounds( 35, 39, 228, 283 );
+		//frmCatalogoDeProductos.getContentPane( ).add( prueba );	
 		
 		JLabel lblImagen = new JLabel("Imagen");
 		springLayout.putConstraint(SpringLayout.NORTH, lblImagen, 12, SpringLayout.NORTH, frmCatalogoDeProductos.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, lblImagen, 34, SpringLayout.WEST, frmCatalogoDeProductos.getContentPane());
 		frmCatalogoDeProductos.getContentPane().add(lblImagen);
+		
 		
 		JLabel lblNombre = new JLabel("Nombre");
 		springLayout.putConstraint(SpringLayout.SOUTH, lblImagen, -6, SpringLayout.NORTH, lblNombre);
@@ -111,7 +89,7 @@ public class CatalogoProductos {
 		btnComprar.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				
-				onComprar( ); //Instancia de clase
+				init(productosList); //Instancia de clase 
 			}
 		});
 		
@@ -133,11 +111,25 @@ public class CatalogoProductos {
 		
 	}
 
-	private void onComprar( ){
-		new DetalleProducto( ); //Aqui pero m...realmente no lo uso 
+	/*private void onComprar( ){
+		new DetalleProducto();
 		this.dispose( );
+	}*/
+	
+	private Productos crearProductoDePrueba( ){
+		Productos aux = new Productos( );
+		aux.setIdProductos( 10 );
+		aux.setNombre( "Soy un producto de prueba" );
+		aux.setExistencias( 10 );
+		return aux;
 	}
 	
+	private void mostrarDetalle( ){
+		//IMPLEMENTACION TEMPORAL
+		new DetalleProducto( crearProductoDePrueba(), this );
+		this.dispose( );
+	}
+
 	private void onSeeCar(){
 		new CarritoCompra();
 		this.dispose();
