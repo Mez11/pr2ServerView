@@ -46,4 +46,10 @@ public class Servidor implements ServidorInterface {
 		return (List<Productos>) entradaDeCliente.readObject( );
 	}
 
+	public void cerrar() throws IOException {
+		entradaDeCliente.close( );
+		salidaACliente.close();
+		cliente.close();
+	}
+
 }
