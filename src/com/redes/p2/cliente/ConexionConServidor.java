@@ -32,18 +32,24 @@ public class ConexionConServidor {
 	@SuppressWarnings("unchecked")
 	public static List<Productos> getCatalogoRemoto( ) throws IOException, ClassNotFoundException{
 		//notificarle al servidor que esperamos recibir
+		System.out.println( "Enviando solicitud de catalogo... @.@" );
 		salida.writeInt( Operaciones.OP_CATALOGO );
+		salida.flush( );
+		System.out.println( "Recibiendo catalogo... @.@" );
 		return (List<Productos>)entrada.readObject( );
 	}//end
 	
 	public static void enviarCompra() throws IOException{
 		//notificar al servidor  que operacion realizar
 		salida.writeInt( Operaciones.OP_COMPRA );
+		salida.flush( );
 		salida.writeObject( BaseDatosCarrito.getCarrito( ) );
+		salida.flush( );
 	}
 	
 	public static void cerrar() throws IOException{
 		salida.writeInt( Operaciones.OP_CERRAR_CONEXION );
+		salida.flush( );
 		salida.close();
 		entrada.close();
 		cliente.close();
