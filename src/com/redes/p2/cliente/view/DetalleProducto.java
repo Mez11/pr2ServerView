@@ -2,6 +2,7 @@ package com.redes.p2.cliente.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,9 +11,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
+import com.redes.p2.cliente.BaseDatosCarrito;
+import com.redes.p2.cliente.ConexionConServidor;
 import com.redes.p2.dao.ProductosDao;
 import com.redes.p2.model.Productos;
-import com.redes.p2.servidor.view.CatalogoDeProductos;
 
 public class DetalleProducto {
 	
@@ -26,32 +28,22 @@ public class DetalleProducto {
 	private JTextField existenciasTf;
 	
 	/**
-	 * Launch the application.
+	 * Create the application. por eso tenia comentatdo lo del constructor ya que asi no sale error al instanciar botton
+	 * Pero si sigue comentado, no se puede probar 
 	 */
-/*	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					DetalleProducto window = new DetalleProducto();
-					window.frmDetalleDelProducto.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
-
-	/**
-	 * Create the application.
-	 */
-	public DetalleProducto( /*Productos producto, CatalogoDeProductos principal*/ ) {
-		//init( producto, principal );listo
+	public DetalleProducto( Productos producto, CatalogoProductos principal ) {
+		init( producto, principal ); //MIsas ya se por que 
+		//yo ya se...
+		//recuerdas cuando te dije que seria mejor tener un proyecto para el cliente,
+		//Y otro proyecto para el servidor...?
+		//si por esto
+		//sipo...
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void init(Productos producto, CatalogoDeProductos principal) {
+	private void init(Productos producto, CatalogoProductos principal) {
 		
 		frmDetalleDelProducto = new JFrame();
 		frmDetalleDelProducto.setTitle("Detalle del producto");
@@ -152,8 +144,7 @@ public class DetalleProducto {
 	}
 	/**Metodo para el boton Comprar**/
 	
-	private void onAcceptPressed( Productos producto, CatalogoDeProductos principal ){
-		ProductosDao dao = null;
+	private void onAcceptPressed( Productos producto, CatalogoProductos principal ){
 		Productos aux = new Productos();
 
 		String nombre = nombreTf.getText() ;
@@ -178,13 +169,15 @@ public class DetalleProducto {
 			aux.setDescripcion(Descripcion);
 			aux.setOrigen(Origen);
 			
+			//Agregar el producto al carrito de compras
+			BaseDatosCarrito.agregar( aux );
 
-			dao = new ProductosDao();
-			dao.inicializarConexion();
-			dao.update( aux );
-
-			frmDetalleDelProducto.dispose();
-			principal.init( dao.getProductos( ) );
+			frmDetalleDelProducto.dispose( );
+			try {
+				principal.init( ConexionConServidor.getCatalogoRemoto( ) );
+			} catch (ClassNotFoundException | IOException e) {
+				e.printStackTrace();
+			}
 		}//end if-else isValid
 	}//end onAccptPressed
 	
