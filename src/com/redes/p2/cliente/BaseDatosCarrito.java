@@ -105,7 +105,7 @@ public class BaseDatosCarrito {
     		System.err.println( "No hay productos en el carrito" );
     		return;
     	}
-    	//Por tiempo, vamos a hacerlo bien cochino
+    	//Por tiempo, vamos a hacerlo bien 
     	//esto es, en vez de cambiar el producto dentro de la lista,
     	//Eliminaremos el producto original, y agregaremos el producto modificado
     	eliminar( producto );
