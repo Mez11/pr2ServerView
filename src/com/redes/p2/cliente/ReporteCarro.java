@@ -1,12 +1,15 @@
 package com.redes.p2.cliente;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.lowagie.text.pdf.codec.Base64.InputStream;
 import com.redes.p2.model.Productos;
 
 import net.sf.jasperreports.engine.JRException;
@@ -20,6 +23,7 @@ import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 
 public class ReporteCarro {
 	private static final String RUTA_JASPER ="";
+	private static final String RUTA_ARCHIVO_SALIDA ="";
 	
 	public ReporteCarro(){
 		super();
@@ -42,9 +46,21 @@ public class ReporteCarro {
 			e.printStackTrace();
 		}
     	
-    	return (InputStream)fis;
+    	return fis;
     }
 	
+    private OutputStream getArchivoSalida( ){
+    	FileOutputStream fos = null;
+    	
+    	try {
+			fos = new FileOutputStream( new File( RUTA_ARCHIVO_SALIDA ) );
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	return fos;
+    }
     
     public  void generarReporte( ){
     	List<Productos> carrito = getCarrito( );
@@ -61,10 +77,10 @@ public class ReporteCarro {
 		JRBeanCollectionDataSource source = new JRBeanCollectionDataSource( BaseDatosCarrito.getCarrito() );
 		try {
 			//Comunicacion de la fuente de datos llenando el templete
-			JasperPrint printer = JasperFillManager.fillReport( carrito, null, source );
+			JasperPrint printer = JasperFillManager.fillReport( getReporte( ), null, source );
 			exporter.setConfiguration( config );
 			exporter.setExporterInput( new SimpleExporterInput( printer ) );
-			exporter.setExporterOutput( new SimpleOutputStreamExporterOutput( response.getOutputStream( ) ) );
+			exporter.setExporterOutput( new SimpleOutputStreamExporterOutput( getArchivoSalida( ) ) );
 			exporter.exportReport( );
 		} catch (JRException e) {
 				e.printStackTrace();
