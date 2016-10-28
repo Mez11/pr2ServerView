@@ -33,9 +33,6 @@ public class ReporteCarro {
 		return BaseDatosCarrito.getCarrito( );
     }
     
-    private Map<String,Object> getEmptyMap( ){
-    	return new HashMap<String, Object>();
-    }
     
     private InputStream getReporte( ){
     	FileInputStream fis = null;
