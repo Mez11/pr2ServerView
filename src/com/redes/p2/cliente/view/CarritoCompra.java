@@ -5,15 +5,18 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.redes.p2.cliente.BaseDatosCarrito;
+import com.redes.p2.cliente.ConexionConServidor;
 import com.redes.p2.cliente.ReporteCarro;
 import com.redes.p2.model.Productos;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 
@@ -77,6 +80,12 @@ public class CarritoCompra {
 		
 		btnFinalizarCompra = new JButton("Finalizar compra");
 		btnFinalizarCompra.setBounds(35, 234, 162, 25);
+		btnFinalizarCompra.addActionListener( new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				onFinalizar( );
+			}
+		});
 		frmCarritoDeCompra.getContentPane().add(btnFinalizarCompra);
 		
 		productosTable = new JTable();
@@ -102,6 +111,7 @@ public class CarritoCompra {
 		btnImprimirReporte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new ReporteCarro( ).generarReporte( );
+				JOptionPane.showMessageDialog( null, "Reporte generado en el escritorio.", "reporte", JOptionPane.INFORMATION_MESSAGE );
 			}
 		});
 		btnImprimirReporte.setBounds(209, 234, 162, 25);
@@ -110,6 +120,15 @@ public class CarritoCompra {
 		frmCarritoDeCompra.setVisible( true );
 	}
 	
+	private void onFinalizar( ){
+		try {
+			ConexionConServidor.enviarCompra( );
+			
+			JOptionPane.showMessageDialog( null, "Compra finalizada", "Compra", JOptionPane.INFORMATION_MESSAGE );
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog( null, "La compra no pudo realizarse", "Compra", JOptionPane.ERROR_MESSAGE );
+		}
+	}
 	
 	public void llenarTabla(){
 		Object [] fila;
