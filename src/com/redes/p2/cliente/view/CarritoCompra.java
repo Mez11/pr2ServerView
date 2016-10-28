@@ -77,13 +77,22 @@ public class CarritoCompra {
 		btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new ReporteCarro( ).generarReporte( );
+				List<Productos> productos;
+				Productos productoModificado = BaseDatosCarrito.getProductoById( 
+						Integer.parseInt( id.getText( ) ) );
+				if( productoModificado == null ){
+					//no se encontro
+					return;
+				}
+				//getIdProductos
+				llenarTabla( );
+				frmCarritoDeCompra.setVisible( true );
+				
 			}
 		});
-		
 		btnModificar.setBounds(331, 165, 105, 25);
 		frmCarritoDeCompra.getContentPane().add(btnModificar);
-		
+	
 		
 		btnFinalizarCompra = new JButton("Finalizar compra");
 		btnFinalizarCompra.setBounds(35, 234, 162, 25);
