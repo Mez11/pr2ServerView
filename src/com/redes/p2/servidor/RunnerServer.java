@@ -62,6 +62,7 @@ public class RunnerServer {
 			List<Productos> carrito = servidor.getCarrito( );
 			for( Productos producto : carrito ){
 				System.out.println( "Producto en carrito: " + producto.getNombre( ) );
+				reducirExistencia( producto.getIdProductos( ), producto.getCantidadComprada(), dao  );
 			}
 		}
 		else if( codigoOperacion == Operaciones.OP_CERRAR_CONEXION ){
@@ -75,6 +76,13 @@ public class RunnerServer {
 		}
 		//el while siga ejecutandose
 		return true;
+	}
+	
+	private static void reducirExistencia( int productoId, int cantidadComprada, ProductosDao dao ){
+		//Buscar el producto de la BD
+		Productos producto = dao.getProductoById( productoId );
+		producto.setExistencias( producto.getExistencias() - cantidadComprada );
+		System.out.println( "La nueva cantidad del producto " + producto.getNombre( ) + " es " + cantidadComprada  );
 	}
 	
 }//fin clase
