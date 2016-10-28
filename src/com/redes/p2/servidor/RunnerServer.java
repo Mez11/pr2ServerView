@@ -1,8 +1,10 @@
 package com.redes.p2.servidor;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.redes.p2.Operaciones;
+import com.redes.p2.model.Productos;
 import com.redes.p2.servidor.dao.ProductosDao;
 
 public class RunnerServer {
@@ -38,12 +40,12 @@ public class RunnerServer {
 					break;
 				}
 			}//fin ciclo para escuchar codigos de operacion
-		} catch (IOException e) {
+		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}//fin try-catch
 	}
 	
-	private static boolean procesarOperacion( Servidor servidor, ProductosDao dao ) throws IOException{
+	private static boolean procesarOperacion( Servidor servidor, ProductosDao dao ) throws IOException, ClassNotFoundException{
 		int codigoOperacion;
 		//Obtener el codigo de operaciones
 		System.out.println( "Obteniendo el codigo de operacion..." );
@@ -57,6 +59,10 @@ public class RunnerServer {
 		else if( codigoOperacion == Operaciones.OP_COMPRA ){
 			//Implementar la logica de confirmacion compra
 			System.out.println( "Recibiendo compra @.@...." );
+			List<Productos> carrito = servidor.getCarrito( );
+			for( Productos producto : carrito ){
+				System.out.println( "Producto en carrito: " + producto.getNombre( ) );
+			}
 		}
 		else if( codigoOperacion == Operaciones.OP_CERRAR_CONEXION ){
 			System.out.println("Cerrando conexion @.@.!!");
