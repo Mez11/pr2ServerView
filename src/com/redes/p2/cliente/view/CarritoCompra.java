@@ -21,9 +21,9 @@ public class CarritoCompra {
 
 	private JFrame frmCarritoDeCompra;
 	private JLabel lblCantidadEnEl;
-	private JTextField textField;
+	private JTextField cantidad;
 	private JLabel lblIdDelProducto;
-	private JTextField textField_1;
+	private JTextField id;
 	private JButton btnModificar;
 	private JButton btnFinalizarCompra;
 	private JTable productosTable;
@@ -57,23 +57,30 @@ public class CarritoCompra {
 		lblCantidadEnEl.setBounds(27, 143, 162, 15);
 		frmCarritoDeCompra.getContentPane().add(lblCantidadEnEl);
 		
-		textField = new JTextField();
-		textField.setBounds(209, 141, 114, 19);
-		frmCarritoDeCompra.getContentPane().add(textField);
-		textField.setColumns(10);
+		cantidad = new JTextField();
+		cantidad.setBounds(209, 141, 114, 19);
+		frmCarritoDeCompra.getContentPane().add(cantidad);
+		cantidad.setColumns(10);
 		
 		lblIdDelProducto = new JLabel("id del producto");
 		lblIdDelProducto.setBounds(37, 170, 146, 15);
 		frmCarritoDeCompra.getContentPane().add(lblIdDelProducto);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(209, 172, 114, 19);
-		frmCarritoDeCompra.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		id = new JTextField();
+		id.setBounds(209, 172, 114, 19);
+		frmCarritoDeCompra.getContentPane().add(id);
+		id.setColumns(10);
 		
 		btnModificar = new JButton("Modificar");
+		btnModificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new ReporteCarro( ).generarReporte( );
+			}
+		});
+		
 		btnModificar.setBounds(331, 165, 105, 25);
 		frmCarritoDeCompra.getContentPane().add(btnModificar);
+		
 		
 		btnFinalizarCompra = new JButton("Finalizar compra");
 		btnFinalizarCompra.setBounds(35, 234, 162, 25);
