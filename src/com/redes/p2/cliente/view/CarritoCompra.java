@@ -11,7 +11,10 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.redes.p2.cliente.BaseDatosCarrito;
+import com.redes.p2.cliente.ReporteCarro;
 import com.redes.p2.model.Productos;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class CarritoCompra {
@@ -94,6 +97,15 @@ public class CarritoCompra {
 		JScrollPane tableScroll = new JScrollPane( productosTable );
 		tableScroll.setBounds(37, 28, 376, 92);
 		frmCarritoDeCompra.getContentPane().add( tableScroll );
+		
+		JButton btnImprimirReporte = new JButton("Imprimir reporte");
+		btnImprimirReporte.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new ReporteCarro( ).generarReporte( );
+			}
+		});
+		btnImprimirReporte.setBounds(209, 234, 162, 25);
+		frmCarritoDeCompra.getContentPane().add(btnImprimirReporte);
 		llenarTabla( );
 		frmCarritoDeCompra.setVisible( true );
 	}
@@ -114,7 +126,7 @@ public class CarritoCompra {
 			fila[0] = list.get( i ).getIdProductos( );
 		    fila[1] = list.get(i).getNombre();
 		    fila[2] = list.get(i).getPrecio();
-		    fila[3] = list.get(i).getExistencias( );
+		    fila[3] = list.get(i).getCantidadComprada( );
 		    modelo.addRow( fila );
 		}
 

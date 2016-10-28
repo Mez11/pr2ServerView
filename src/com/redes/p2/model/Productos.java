@@ -15,6 +15,7 @@ public class Productos implements Serializable {
 	private String descripcion;
 	private String origen;
 	private byte[] imagen;
+	private int cantidadComprada;
 
 	public int getIdProductos() {
 		return idProductos;
@@ -58,7 +59,15 @@ public class Productos implements Serializable {
 	public void setImagen(byte[] imagen) {
 		this.imagen = imagen;
 	}
+	public int getCantidadComprada() {
+		return cantidadComprada;
+	}
+	public void setCantidadComprada(int cantidadComprada) {
+		this.cantidadComprada = cantidadComprada;
+	}
 	
+	public double getSubtotal( ){
+		return precio * cantidadComprada;
+	}
 	
-
 }

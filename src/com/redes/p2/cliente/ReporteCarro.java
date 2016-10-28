@@ -22,8 +22,8 @@ import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 
 public class ReporteCarro {
-	private static final String RUTA_JASPER ="";
-	private static final String RUTA_ARCHIVO_SALIDA ="";
+	private static final String RUTA_JASPER ="/home/pma/Devel/Redes2/pr2ServerView/report/TicketCompra.jasper";
+	private static final String RUTA_ARCHIVO_SALIDA ="/home/pma/Desktop/Reporte.pdf";
 	
 	public ReporteCarro(){
 		super();

@@ -61,6 +61,7 @@ public class CatalogoProductos {
 		aux.setNombre( "Soy un producto de prueba" );
 		aux.setExistencias( 10 );
 		aux.setPrecio( 20.3 );
+		aux.setCantidadComprada( 2 );
 		return aux;
 	}
 	

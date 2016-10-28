@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
+<!-- 2016-10-27T19:05:10 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaEscuela" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1ed033f0-0f76-4b7d-81fb-607a9cdd75de">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<field name="idProductos" class="java.lang.Integer"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="precio" class="java.lang.Double"/>
+	<field name="cantidadComprada" class="java.lang.Integer"/>
+	<field name="subtotal" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="239" y="28" width="100" height="30" uuid="e90c9c02-cc82-4b32-850b-bbd7406b3d71">
+					<property name="Listado de Escuela" value="NEW_VALUE"/>
+				</reportElement>
+				<text><![CDATA[Ticket de compra]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="74" splitType="Stretch">
+			<staticText>
+				<reportElement x="70" y="20" width="70" height="20" uuid="221fa65c-d071-4b40-960b-9886b7889beb">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="23" width="70" height="20" uuid="16c1de35-2ec6-48ad-9fdb-f51deb3c6b70"/>
+				<text><![CDATA[Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="18" width="78" height="25" uuid="0f4775b9-4fb6-44b8-882d-3630de9ea08a"/>
+				<text><![CDATA[Costo Unitario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="15" width="100" height="30" uuid="ea28d9f6-4f3d-4473-8918-d5ff08627a9d"/>
+				<text><![CDATA[Subtotal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="15" width="100" height="30" uuid="c5126c45-26cb-4b3d-9833-3ca3e857e517"/>
+				<text><![CDATA[cantidadComprada]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="77" splitType="Stretch">
+			<textField>
+				<reportElement x="70" y="10" width="70" height="30" uuid="718102e7-c13c-4562-ae15-58d335d16287">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{cantidadComprada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="9" width="70" height="30" uuid="b1c80232-64eb-4294-b138-7c704615ac8c">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="10" width="70" height="30" uuid="d30f4589-1a48-4706-b711-3d44ca9a74de">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="238" y="10" width="78" height="30" uuid="835ae2a8-419e-46fe-a727-e692ff2482a7">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{cantidadComprada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="10" width="100" height="30" uuid="aa1358ef-d8a7-46d9-a12b-0c193a5f3d61"/>
+				<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
