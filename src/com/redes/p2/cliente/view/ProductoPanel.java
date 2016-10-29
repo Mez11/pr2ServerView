@@ -57,8 +57,4 @@ public class ProductoPanel extends JPanel {
 		add(btnComprar);
 		
 	}
-	
-
-	
-
 }
