@@ -32,12 +32,7 @@ public class DetalleProducto {
 	 * Pero si sigue comentado, no se puede probar 
 	 */
 	public DetalleProducto( Productos producto, CatalogoProductos principal ) {
-		init( producto, principal ); //MIsas ya se por que 
-		//yo ya se...
-		//recuerdas cuando te dije que seria mejor tener un proyecto para el cliente,
-		//Y otro proyecto para el servidor...?
-		//si por esto
-		//sipo...
+		init( producto, principal ); 
 	}
 
 	/**
@@ -141,6 +136,7 @@ public class DetalleProducto {
 		JSpinner spinner = new JSpinner();
 		spinner.setBounds(186, 174, 28, 20);
 		frmDetalleDelProducto.getContentPane().add(spinner);
+		frmDetalleDelProducto.setVisible( true );
 	}
 	/**Metodo para el boton Comprar**/
 	

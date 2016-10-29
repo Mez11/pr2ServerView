@@ -81,8 +81,13 @@ public class RunnerServer {
 	private static void reducirExistencia( int productoId, int cantidadComprada, ProductosDao dao ){
 		//Buscar el producto de la BD
 		Productos producto = dao.getProductoById( productoId );
-		producto.setExistencias( producto.getExistencias() - cantidadComprada );
-		System.out.println( "La nueva cantidad del producto " + producto.getNombre( ) + " es " + cantidadComprada  );
+		if( producto == null ){
+			System.err.println( "No se encontro el producto" );
+		}
+		else{			
+			producto.setExistencias( producto.getExistencias() - cantidadComprada );
+			System.out.println( "La nueva cantidad del producto " + producto.getNombre( ) + " es " + cantidadComprada  );
+		}
 	}
 	
 }//fin clase
