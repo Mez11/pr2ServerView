@@ -20,7 +20,7 @@ public class CatalogoProductos {
 	private ProductoPanel productoPanel;
 	
 	private void mostrarProducto( Productos producto ){
-		
+		productoPanel.llenarCampos( producto );
 	}
 
 	private void inicializarParametrosLista(  ){
@@ -50,12 +50,12 @@ public class CatalogoProductos {
 		frmCatalogoDeProductos.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCatalogoDeProductos.getContentPane().setLayout(null);
 		
-		inicializarParametrosLista( );
 		//Se inicializa con el primer producto
-		productoPanel = new ProductoPanel( productosList.get( productoActual ), this );
+		productoPanel = new ProductoPanel( this );
 		productoPanel.setBounds(26, 12, 204, 178);
 		productoPanel.setVisible( true );
 		frmCatalogoDeProductos.getContentPane( ).add( productoPanel );
+		inicializarParametrosLista( );
 		
 		JButton btnVerCarrito = new JButton("Ver Carrito");
 		btnVerCarrito.setBounds(319, 19, 91, 27);
@@ -100,21 +100,6 @@ public class CatalogoProductos {
 		
 	}
 
-	/*private void onComprar( ){
-		new DetalleProducto();
-		this.dispose( );
-	}*/
-	
-	private Productos crearProductoDePrueba( ){
-		Productos aux = new Productos( );
-		aux.setIdProductos( 10 );
-		aux.setNombre( "Soy un producto de prueba" );
-		aux.setExistencias( 10 );
-		aux.setPrecio( 20.3 );
-		aux.setCantidadComprada( 2 );
-		return aux;
-	}
-	
 	private void mostrarDetalle(  ){
 		new DetalleProducto( productosList.get( productoActual ), this );
 		this.dispose( );
@@ -141,7 +126,6 @@ public class CatalogoProductos {
 	}//fin siguienteProducto
 
 	private void onSeeCar(){
-		BaseDatosCarrito.agregar( crearProductoDePrueba( ) );
 		new CarritoCompra();
 		this.dispose();
 		frmCatalogoDeProductos.dispose();

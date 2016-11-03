@@ -15,46 +15,52 @@ public class ProductoPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -6789727953580545184L;
+	private JLabel lblNewLabel;
+	private JLabel lblNombre;
+	private JLabel lblPrecio;
+	private JLabel lblExistencia;
 	
-	/**
-	 * Clase para visualizar un producto en especifico
-	 * @param producto El producto a desplegar
-	 */
-	public ProductoPanel( Productos producto, CatalogoProductos principal ) {
-		setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel( );
-		lblNewLabel.setBounds(35, 25, 94, 93);
+	public void llenarCampos( Productos producto ){
 		if( producto.getImagen() != null ){
 			ImageUtils.displayPrettyImage( producto.getImagen(), lblNewLabel );
 		} else {
 			lblNewLabel.setText( "Imagen no disponible" );
 		}
+		lblNombre.setText( "Nombre: " + producto.getNombre( )  );
+		lblPrecio.setText( "Precio: " + producto.getPrecio( ) );
+		lblExistencia.setText( "Existencias: " + producto.getExistencias( ) );
+	}//end llenarCampos
+	
+	/**
+	 * Clase para visualizar un producto en especifico
+	 * @param producto El producto a desplegar
+	 */
+	public ProductoPanel( CatalogoProductos principal ) {
+		setLayout(null);
+		
+		lblNewLabel = new JLabel( );
+		lblNewLabel.setBounds(35, 25, 94, 93);
 		add(lblNewLabel);
 		
-		JLabel lblNombre = new JLabel("Nombre: " + producto.getNombre( ) );
+		lblNombre = new JLabel( );
 		lblNombre.setBounds(25, 130, 196, 15);
 		add(lblNombre);
 		
-		JLabel lblPrecio = new JLabel("Precio: " + producto.getPrecio( ) );
+		lblPrecio = new JLabel( );
 		lblPrecio.setBounds(25, 149, 196, 15);
 		add(lblPrecio);
 		
-		JLabel lblExistencia = new JLabel("Existencias: " + producto.getExistencias( ) );
+		lblExistencia = new JLabel( );
 		lblExistencia.setBounds(25, 163, 196, 15);
 		add(lblExistencia);
-		
-	
 		
 		JButton btnComprar = new JButton("Comprar");
 		btnComprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//DetalleProducto miProducto= new DetalleProducto();
-                                
 			}
 		});
 		btnComprar.setBounds(25, 227, 117, 25);
-		add(btnComprar);
-		
-	}
-}
+		add(btnComprar);		
+	}//end constructor
+}//end class

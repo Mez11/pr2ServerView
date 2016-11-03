@@ -15,6 +15,7 @@ import com.redes.p2.cliente.BaseDatosCarrito;
 import com.redes.p2.cliente.ConexionConServidor;
 import com.redes.p2.model.Productos;
 import com.redes.p2.servidor.dao.ProductosDao;
+import com.redes.p2.utis.ImageUtils;
 
 public class DetalleProducto {
 	
@@ -39,7 +40,6 @@ public class DetalleProducto {
 	 * Initialize the contents of the frame.
 	 */
 	private void init(Productos producto, CatalogoProductos principal) {
-		
 		frmDetalleDelProducto = new JFrame();
 		frmDetalleDelProducto.setTitle("Detalle del producto");
 		frmDetalleDelProducto.setBounds(100, 100, 450, 300);
@@ -97,8 +97,6 @@ public class DetalleProducto {
 			}
 		});
 		
-		
-		
 	   //TextFields
 		idTf = new JTextField( Integer.toString( producto.getIdProductos( ) ) );
 		idTf.setEditable(false);
@@ -123,12 +121,13 @@ public class DetalleProducto {
 		frmDetalleDelProducto.getContentPane().add(descripcionTf);
 		descripcionTf.setColumns(10);
 		
-		origenTf = new JTextField(producto.getIdProductos());
+		origenTf = new JTextField( Integer.toString( producto.getIdProductos( ) ) );
 		origenTf.setBounds(146, 120, 114, 19);
 		frmDetalleDelProducto.getContentPane().add(origenTf);
 		origenTf.setColumns(10);
 		
-		existenciasTf = new JTextField(producto.getExistencias());
+		System.out.println( "Existencias del producto: " +  producto.getExistencias() );
+		existenciasTf = new JTextField( Integer.toString( producto.getExistencias( ) ) );
 		existenciasTf.setBounds(146, 147, 114, 19);
 		frmDetalleDelProducto.getContentPane().add(existenciasTf);
 		existenciasTf.setColumns(10);
@@ -136,6 +135,11 @@ public class DetalleProducto {
 		JSpinner spinner = new JSpinner();
 		spinner.setBounds(186, 174, 28, 20);
 		frmDetalleDelProducto.getContentPane().add(spinner);
+		
+		JLabel imagenLbl = new JLabel( );
+		imagenLbl.setBounds(289, 43, 117, 137);
+		ImageUtils.displayPrettyImage( producto.getImagen(), imagenLbl );
+		frmDetalleDelProducto.getContentPane().add(imagenLbl);
 		frmDetalleDelProducto.setVisible( true );
 	}
 	/**Metodo para el boton Comprar**/
@@ -176,6 +180,4 @@ public class DetalleProducto {
 			}
 		}//end if-else isValid
 	}//end onAccptPressed
-	
-	
 }//End class
