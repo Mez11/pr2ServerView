@@ -1,6 +1,8 @@
 package com.redes.p2.cliente.view;
 
-import java.util.Iterator;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -18,9 +20,6 @@ import com.redes.p2.cliente.BaseDatosCarrito;
 import com.redes.p2.cliente.ConexionConServidor;
 import com.redes.p2.cliente.ReporteCarro;
 import com.redes.p2.model.Productos;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.awt.event.ActionEvent;
 
 
 public class CarritoCompra {
@@ -32,7 +31,6 @@ public class CarritoCompra {
 	private JLabel lblIdDelProducto;
 	private JTextField id;
 	private JButton btnAgregar;
-	private JButton btnElimina;
 	private JButton btnFinalizarCompra;
 	private JTable productosTable;
 	private String[] columnNames = {"Id",
@@ -85,7 +83,7 @@ public class CarritoCompra {
 		btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				List<Productos> productos;
+				//List<Productos> productos;
 				Productos productoModificado = BaseDatosCarrito.getProductoById( 
 						Integer.parseInt( id.getText( ) ) );
 				if( productoModificado == null ){
