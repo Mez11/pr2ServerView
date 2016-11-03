@@ -19,7 +19,7 @@ public class ConexionCliente {
 	private JTextField tfIp;
 	
 	private static final String HOST = "127.0.0.1";
-	private static final int port = 4070;
+	private static final int PORT = 4070;
 	
 	
 	
@@ -83,7 +83,7 @@ public class ConexionCliente {
 		tfDireccion.setBounds(270, 31, 114, 19);
 		frmConexionCliente.getContentPane().add(tfDireccion);
 		tfDireccion.setColumns(10);
-		tfDireccion.setText("4070");
+		tfDireccion.setText( Integer.toString( PORT ) );
 
 		JButton btnConectarse = new JButton("Conectarse");
 		btnConectarse.addActionListener(new ActionListener() {

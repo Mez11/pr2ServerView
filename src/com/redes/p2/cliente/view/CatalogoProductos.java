@@ -8,7 +8,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import com.redes.p2.cliente.BaseDatosCarrito;
 import com.redes.p2.model.Productos;
 
 public class CatalogoProductos {
