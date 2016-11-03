@@ -2,12 +2,15 @@ package com.redes.p2.cliente.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import com.redes.p2.cliente.BaseDatosCarrito;
+import com.redes.p2.cliente.ConexionConServidor;
 import com.redes.p2.model.Productos;
 
 public class CatalogoProductos {
@@ -46,7 +49,7 @@ public class CatalogoProductos {
 		frmCatalogoDeProductos = new JFrame();
 		frmCatalogoDeProductos.setTitle("Catalogo de productos @.@");
 		frmCatalogoDeProductos.setBounds(100, 100, 450, 300);
-		frmCatalogoDeProductos.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmCatalogoDeProductos.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmCatalogoDeProductos.getContentPane().setLayout(null);
 		
 		//Se inicializa con el primer producto
@@ -87,6 +90,15 @@ public class CatalogoProductos {
 		btnVerDetalle.setBounds(36, 191, 142, 27);
 		frmCatalogoDeProductos.getContentPane().add(btnVerDetalle);
 		
+		JButton btnCerrar = new JButton("Cerrar");
+		btnCerrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				onCerrar( );
+			}
+		});
+		btnCerrar.setBounds(299, 191, 96, 27);
+		frmCatalogoDeProductos.getContentPane().add(btnCerrar);
+		
 		btnVerCarrito.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				
@@ -125,11 +137,23 @@ public class CatalogoProductos {
 	}//fin siguienteProducto
 
 	private void onSeeCar(){
-		new CarritoCompra();
-		this.dispose();
-		frmCatalogoDeProductos.dispose();
+		if( !BaseDatosCarrito.hayProductos() ){
+			JOptionPane.showMessageDialog( null, "No hay productos comprados", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		new CarritoCompra( this );
+		dispose( );
 	}
 
+	private void onCerrar() {
+		try {
+			ConexionConServidor.cerrar( );
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		dispose( );
+	}
+	
 	public void dispose() {
 		frmCatalogoDeProductos.dispose();
 	}

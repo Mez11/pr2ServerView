@@ -24,6 +24,7 @@ import java.awt.event.ActionEvent;
 public class CarritoCompra {
 
 	private JFrame frmCarritoDeCompra;
+	private CatalogoProductos mainFrame;
 	private JLabel lblCantidadEnEl;
 	private JTextField cantidad;
 	private JLabel lblIdDelProducto;
@@ -36,12 +37,14 @@ public class CarritoCompra {
             "Nombre",
             "Precio",
             "Cantidad"};
+	private JButton btnRegresar;
 
 	/**
 	 * Create the application.
 	 */
-	public CarritoCompra() {
+	public CarritoCompra( CatalogoProductos catalogo ) {
 		initialize();
+		mainFrame = catalogo;
 	}
 
 	/**
@@ -50,8 +53,8 @@ public class CarritoCompra {
 	public void initialize() {
 		frmCarritoDeCompra = new JFrame();
 		frmCarritoDeCompra.setTitle("Carrito de compra");
-		frmCarritoDeCompra.setBounds(100, 100, 450, 300);
-		frmCarritoDeCompra.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmCarritoDeCompra.setBounds(100, 100, 450, 341);
+		frmCarritoDeCompra.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmCarritoDeCompra.getContentPane().setLayout(null);
 		
 		JLabel lblProdutosEnCarrito = new JLabel("Produtos en carrito");
@@ -172,15 +175,33 @@ public class CarritoCompra {
 		JButton btnCambiar = new JButton("Cambiar");
 		btnCambiar.setBounds(335, 197, 105, 25);
 		frmCarritoDeCompra.getContentPane().add(btnCambiar);
+		
+		btnRegresar = new JButton("Regresar");
+		btnRegresar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				regresarAPrincipal( );
+			}
+		});
+		btnRegresar.setBounds(160, 271, 96, 27);
+		frmCarritoDeCompra.getContentPane().add(btnRegresar);
 		llenarTabla( );
 		frmCarritoDeCompra.setVisible( true );
+	}
+	
+	private void regresarAPrincipal( ){
+		frmCarritoDeCompra.dispose( );
+		try {
+			mainFrame.init( ConexionConServidor.getCatalogoRemoto( ) );
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void onFinalizar( ){
 		try {
 			ConexionConServidor.enviarCompra( );
-			
 			JOptionPane.showMessageDialog( null, "Compra finalizada", "Compra", JOptionPane.INFORMATION_MESSAGE );
+			regresarAPrincipal( );
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog( null, "La compra no pudo realizarse", "Compra", JOptionPane.ERROR_MESSAGE );
 		}

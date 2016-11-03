@@ -15,7 +15,6 @@ import javax.swing.SpinnerNumberModel;
 import com.redes.p2.cliente.BaseDatosCarrito;
 import com.redes.p2.cliente.ConexionConServidor;
 import com.redes.p2.model.Productos;
-import com.redes.p2.servidor.dao.ProductosDao;
 import com.redes.p2.utis.ImageUtils;
 
 public class DetalleProducto {
@@ -45,7 +44,7 @@ public class DetalleProducto {
 		frmDetalleDelProducto = new JFrame();
 		frmDetalleDelProducto.setTitle("Detalle del producto");
 		frmDetalleDelProducto.setBounds(100, 100, 450, 300);
-		frmDetalleDelProducto.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmDetalleDelProducto.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmDetalleDelProducto.getContentPane().setLayout(null);
 		
 		/**Etiquetas de producto*/
@@ -82,10 +81,12 @@ public class DetalleProducto {
 		btnCancelar.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				ProductosDao dao = new ProductosDao( );
-				dao.inicializarConexion();
 				frmDetalleDelProducto.dispose( );
-				principal.init( dao.getProductos() );
+				try {
+					principal.init( ConexionConServidor.getCatalogoRemoto( ) );
+				} catch (ClassNotFoundException | IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 
