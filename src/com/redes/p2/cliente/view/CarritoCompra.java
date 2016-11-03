@@ -60,6 +60,8 @@ public class CarritoCompra {
 		lblCantidadEnEl.setBounds(27, 143, 162, 15);
 		frmCarritoDeCompra.getContentPane().add(lblCantidadEnEl);
 		
+		
+		
 		cantidad = new JTextField();
 		cantidad.setBounds(209, 141, 114, 19);
 		frmCarritoDeCompra.getContentPane().add(cantidad);
