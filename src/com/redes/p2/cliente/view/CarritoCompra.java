@@ -29,7 +29,7 @@ public class CarritoCompra {
 	private JTextField cantidad;
 	private JLabel lblIdDelProducto;
 	private JTextField id;
-	private JButton btnModificar;
+	private JButton btnAgregar;
 	private JButton btnElimina;
 	private JButton btnFinalizarCompra;
 	private JTable productosTable;
@@ -81,8 +81,8 @@ public class CarritoCompra {
 		frmCarritoDeCompra.getContentPane().add(id);
 		id.setColumns(10);
 		
-		btnModificar = new JButton("Agregar");
-		btnModificar.addActionListener(new ActionListener() {
+		btnAgregar = new JButton("Agregar");
+		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<Productos> productos;
 				Productos productoModificado = BaseDatosCarrito.getProductoById( 
@@ -97,8 +97,8 @@ public class CarritoCompra {
 				
 			}
 		});
-		btnModificar.setBounds(335, 138, 105, 25);
-		frmCarritoDeCompra.getContentPane().add(btnModificar);
+		btnAgregar.setBounds(335, 138, 105, 25);
+		frmCarritoDeCompra.getContentPane().add(btnAgregar);
 		//End Modificar == Agregar
 		
 		btnFinalizarCompra = new JButton("Finalizar compra");
@@ -143,30 +143,7 @@ public class CarritoCompra {
 		JButton btnElimina = new JButton("Eliminar");
 		btnElimina.addActionListener(new ActionListener() {
    			public void actionPerformed(ActionEvent e) {
-   				List<Productos> productos;
-   			 Productos productoActual = null;
-   				Productos productoEliminado = BaseDatosCarrito.getProductoById( 
-   						Integer.parseInt( id.getText( ) ) );
-   				if( productoEliminado == null ){
-   					//no se encontro
-   					return;
-   				}
-   				Iterator<Productos> iterator = ((List<Productos>) productoActual).iterator( );
-   			 while( iterator.hasNext() ){
-   		       //iterator.next() Nos da el objeto en la posicion actual
-   		       productoActual = iterator.next( );
-   		       //Validar si el ID del producto actual es igual al producto especificado
-   		       //if( productoActual.getIdProductos() == productos.get(1) ){
-   		         //Si se encontro, eliminarlo:
-   		         iterator.remove( );
-   		       //}//fin comprobacion ID
-   		     }//Fin del while
-   				
-   				
-   				//getIdProductos
-   				llenarTabla( );
-   				frmCarritoDeCompra.setVisible( true );
-   				
+   				onEliminar( );
    			}
    		});
 		btnElimina.setBounds(335, 165, 105, 25);
@@ -197,6 +174,24 @@ public class CarritoCompra {
 		}
 	}
 	
+	private void onEliminar( ){
+		Productos producto = BaseDatosCarrito.getProductoById( 
+						Integer.parseInt( id.getText( ) ) );
+		if( producto == null ){
+			//no se encontro
+			JOptionPane.showMessageDialog( null, "Hubo un error al buscar el producto", "Error", JOptionPane.ERROR_MESSAGE );
+			return;
+		}
+		
+		BaseDatosCarrito.eliminar( producto );
+		//Verificar si (despues de eliminar el producto) quedan productos en el carrito
+		if( !BaseDatosCarrito.hayProductos() ){
+			JOptionPane.showMessageDialog( null, "Ya no hay productos en el carrito", "Carrito vacio", JOptionPane.WARNING_MESSAGE );
+			regresarAPrincipal();
+		}
+		llenarTabla( );
+	}
+	
 	private void onFinalizar( ){
 		try {
 			ConexionConServidor.enviarCompra( );
@@ -207,15 +202,24 @@ public class CarritoCompra {
 		}
 	}
 	
-	public void llenarTabla(){
+	private void limpiarTabla( DefaultTableModel modelo ){
+		if( modelo.getRowCount() > 0 ){
+			System.out.println( "Eliminando datos de tabla..." );
+			for( int i = 0; i <= modelo.getRowCount(); i++ ){
+				modelo.removeRow( 0 );
+			}
+		}
+	}
+	
+	private void llenarTabla(){
 		Object [] fila;
 		DefaultTableModel modelo =(DefaultTableModel)productosTable.getModel( );
 		List<Productos> list = BaseDatosCarrito.getCarrito( );
-		
 		if( !BaseDatosCarrito.hayProductos( ) ){
 			return;
 		}
-		
+		//Eliminar datos existentes (si los hay)
+		limpiarTabla( modelo );
 		fila = new Object[4];
 		for( int i = 0; i < list.size(); i++ ){
 			System.out.println( "Agregando un producto.." );
