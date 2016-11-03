@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 
 import com.redes.p2.cliente.BaseDatosCarrito;
 import com.redes.p2.cliente.ConexionConServidor;
@@ -27,6 +28,7 @@ public class DetalleProducto {
 	private JTextField descripcionTf;
 	private JTextField origenTf;
 	private JTextField existenciasTf;
+	private JSpinner cantidadSp;
 	
 	/**
 	 * Create the application. por eso tenia comentatdo lo del constructor ya que asi no sale error al instanciar botton
@@ -131,10 +133,14 @@ public class DetalleProducto {
 		existenciasTf.setBounds(146, 147, 114, 19);
 		frmDetalleDelProducto.getContentPane().add(existenciasTf);
 		existenciasTf.setColumns(10);
-		
-		JSpinner spinner = new JSpinner();
-		spinner.setBounds(186, 174, 28, 20);
-		frmDetalleDelProducto.getContentPane().add(spinner);
+		//En newSpinnerNumberModel se define (En orden):
+		//La cantidad inicial desplegada (1)
+		//Aqui se define la cantidad minima a comprar (1),
+		//la cantidad maxima a comprar (producto.getExistencias)
+		//El incremento que se hara cuando el usuario presione "arriba" o "abajo" (1)
+		cantidadSp = new JSpinner( new SpinnerNumberModel( 1, 1, producto.getExistencias( ), 1 ) );
+		cantidadSp.setBounds(173, 174, 41, 20);
+		frmDetalleDelProducto.getContentPane().add(cantidadSp);
 		
 		JLabel imagenLbl = new JLabel( );
 		imagenLbl.setBounds(289, 43, 117, 137);
@@ -152,6 +158,8 @@ public class DetalleProducto {
 		String Existencias = existenciasTf.getText();
 		String Descripcion = descripcionTf.getText();
 		String Origen = origenTf.getText();
+		Integer cantidad = (Integer)cantidadSp.getValue( );
+		
 		/**Validacion de campos vacios @.@.*/
 		if( nombre.replaceAll(" ", "").length() == 0 ||
 				precio.replaceAll(" ", "").length()==0||
@@ -168,6 +176,7 @@ public class DetalleProducto {
 			aux.setExistencias(Integer.parseInt(Existencias));
 			aux.setDescripcion(Descripcion);
 			aux.setOrigen(Origen);
+			aux.setCantidadComprada( cantidad );
 			
 			//Agregar el producto al carrito de compras
 			BaseDatosCarrito.agregar( aux );
