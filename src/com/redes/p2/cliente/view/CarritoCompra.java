@@ -76,7 +76,7 @@ public class CarritoCompra {
 		frmCarritoDeCompra.getContentPane().add(id);
 		id.setColumns(10);
 		
-		btnModificar = new JButton("Modificar");
+		btnModificar = new JButton("Agrega");
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<Productos> productos;
@@ -94,7 +94,7 @@ public class CarritoCompra {
 		});
 		btnModificar.setBounds(331, 165, 105, 25);
 		frmCarritoDeCompra.getContentPane().add(btnModificar);
-	
+		//End Modificar == Agregar
 		
 		btnFinalizarCompra = new JButton("Finalizar compra");
 		btnFinalizarCompra.setBounds(35, 234, 162, 25);

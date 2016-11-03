@@ -142,6 +142,10 @@ public class CatalogoProductos {
 
 	private void onSeeCar(){
 		BaseDatosCarrito.agregar( crearProductoDePrueba( ) );
+		//Modificar 
+		BaseDatosCarrito.cambiar(crearProductoDePrueba( ));
+		//Eliminar
+		BaseDatosCarrito.eliminar(crearProductoDePrueba());
 		new CarritoCompra();
 		this.dispose();
 		frmCatalogoDeProductos.dispose();
