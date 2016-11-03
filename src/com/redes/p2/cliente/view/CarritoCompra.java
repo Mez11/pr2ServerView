@@ -8,8 +8,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 
 import com.redes.p2.cliente.BaseDatosCarrito;
@@ -26,7 +28,7 @@ public class CarritoCompra {
 	private JFrame frmCarritoDeCompra;
 	private CatalogoProductos mainFrame;
 	private JLabel lblCantidadEnEl;
-	private JTextField cantidad;
+	private JSpinner cantidad;
 	private JLabel lblIdDelProducto;
 	private JTextField id;
 	private JButton btnAgregar;
@@ -67,10 +69,9 @@ public class CarritoCompra {
 		
 		
 		
-		cantidad = new JTextField();
+		cantidad = new JSpinner( new SpinnerNumberModel( 1, 1, 100, 1 ) );
 		cantidad.setBounds(209, 141, 114, 19);
 		frmCarritoDeCompra.getContentPane().add(cantidad);
-		cantidad.setColumns(10);
 		
 		lblIdDelProducto = new JLabel("id del producto");
 		lblIdDelProducto.setBounds(37, 170, 146, 15);
@@ -150,6 +151,11 @@ public class CarritoCompra {
 		frmCarritoDeCompra.getContentPane().add(btnElimina);
 		
 		JButton btnCambiar = new JButton("Cambiar");
+		btnCambiar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				onCambiar( );
+			}
+		});
 		btnCambiar.setBounds(335, 197, 105, 25);
 		frmCarritoDeCompra.getContentPane().add(btnCambiar);
 		
@@ -201,6 +207,28 @@ public class CarritoCompra {
 			JOptionPane.showMessageDialog( null, "La compra no pudo realizarse", "Compra", JOptionPane.ERROR_MESSAGE );
 		}
 	}
+	
+	private void onCambiar( ){
+		Integer nuevaCantidad = null;
+		Productos producto = BaseDatosCarrito.getProductoById( 
+				Integer.parseInt( id.getText( ) ) );
+		if( producto == null ){
+			//no se encontro
+			JOptionPane.showMessageDialog( null, "Hubo un error al buscar el producto", "Error", JOptionPane.ERROR_MESSAGE );
+			return;
+		}
+		nuevaCantidad = (Integer)cantidad.getValue( );
+		//revisar que no sobrepase las existencias del producto
+		if( nuevaCantidad > producto.getExistencias() ){
+			JOptionPane.showMessageDialog( null, "La cantidad especificada sobrepasa las existencias", "No se puede modificar", JOptionPane.WARNING_MESSAGE );
+			return;
+		}
+		
+		//modificar
+		producto.setCantidadComprada( nuevaCantidad );
+		BaseDatosCarrito.cambiar( producto );
+		llenarTabla( );
+	}//end onCambiar
 	
 	private void limpiarTabla( DefaultTableModel modelo ){
 		if( modelo.getRowCount() > 0 ){
