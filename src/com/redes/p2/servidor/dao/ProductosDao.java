@@ -36,6 +36,19 @@ public class ProductosDao {
 				"select * from Productos";
 		private Connection con;
 		
+		private Productos construirProducto( ResultSet rs ) throws SQLException{
+			Productos aux = new Productos();
+			aux.setIdProductos(rs.getInt("idProductos"));
+			aux.setNombre(rs.getString("nombre"));
+			aux.setPrecio(rs.getDouble("precio"));
+			aux.setExistencias(rs.getInt("existencias"));
+			aux.setDescripcion(rs.getString("descripcion"));
+			aux.setOrigen(rs.getString("origen"));
+			aux.setImagen(rs.getBytes("imagen"));
+			
+			return aux;
+		}
+		
 		/**
 		 * Trae todos los productos
 		 * @return
@@ -45,18 +58,9 @@ public class ProductosDao {
 			   try {
 				   PreparedStatement r = con.prepareStatement( SQL_SELECT_ALL); //Inicializa conexion y trae sentencia de Query
 				   ResultSet rs =r.executeQuery();
-				   list = new ArrayList<Productos> ();//INicializar lista
-				   Productos aux=null;//Inicializar auxiliar 
+				   list = new ArrayList<Productos> ();//INicializar lista 
 				   while(rs.next()){
-					   aux=new Productos();
-					   aux.setIdProductos(rs.getInt("idProductos"));
-					   aux.setNombre(rs.getString("nombre"));
-					   aux.setPrecio(rs.getDouble("precio"));
-					   aux.setExistencias(rs.getInt("existencias"));
-					   aux.setDescripcion(rs.getString("descripcion"));
-					   aux.setOrigen(rs.getString("origen"));
-					   aux.setImagen(rs.getBytes("imagen"));
-					   list.add(aux);
+					   list.add( construirProducto( rs ) );
 				   }
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -65,32 +69,18 @@ public class ProductosDao {
 		}//end
 		
 	   public Productos getProductoById(Integer id){
-	
-		   List<Productos> list = null;
+		   Productos producto = null;
 		   try {
 			   PreparedStatement rt = con.prepareStatement(SQL_SELECT);
 			   rt.setInt(1,id );
 			   ResultSet rs = rt.executeQuery();
-			   Productos aux = null;
-			   list = new ArrayList<Productos>( );
-			   while(rs.next()){
-				   aux= new Productos();
-				   aux.setIdProductos(rs.getInt("id"));
-				   aux.setNombre(rs.getString("nombre"));
-				   aux.setPrecio(rs.getDouble("precio"));
-				   aux.setExistencias(rs.getInt("existencias"));
-				   aux.setDescripcion(rs.getString("descripcion"));
-				   aux.setOrigen(rs.getString("origen"));
-				   aux.setImagen(rs.getBytes("foto"));
-				   list.add(aux);
+			   if( rs.next( ) ) {
+				   producto = construirProducto( rs );
 			   }
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		    if( list == null || list.isEmpty() ){
-		    	return null;
-		    }
-		    return list.get( 0 );
+		    return producto;
 	   }
 	   
 	   public void delete( Productos producto ){
@@ -166,38 +156,23 @@ public class ProductosDao {
 		    
 			
 		}
-		
-		//Metodo para actualizar productos
-		public void update (Productos e){
-			
-			PreparedStatement ds=null;
-			
-			
-			try {
-				ds=con.prepareStatement(SQL_UPDATE);
-				ds.setString(1,e.getNombre());
-				ds.setDouble(2,e.getPrecio());
-				ds.setInt(3,e.getExistencias());
-				ds.setString(4,e.getDescripcion());
-				ds.setString(5,e.getOrigen());
-				ds.setBytes(6,e.getImagen());
-				ds.setInt(7,e.getIdProductos());
-				
-				ds.executeUpdate( );	
-				
-				
-				
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				ex.printStackTrace();
-			}
+
+	//Metodo para actualizar productos
+	public void update (Productos e){
+		PreparedStatement ds=null;
+		System.out.println( SQL_UPDATE );
+		try {
+			ds=con.prepareStatement(SQL_UPDATE);
+			ds.setString(1,e.getNombre());
+			ds.setDouble(2,e.getPrecio());
+			ds.setInt(3,e.getExistencias());
+			ds.setString(4,e.getDescripcion());
+			ds.setString(5,e.getOrigen());
+			ds.setBytes(6,e.getImagen());
+			ds.setInt(7,e.getIdProductos());
+			ds.executeUpdate( );
+		} catch (SQLException ex) {
+			ex.printStackTrace();
 		}
-			
-	}//end class
-	
-
-
-			
-
-	
-
+	}
+}//end class
