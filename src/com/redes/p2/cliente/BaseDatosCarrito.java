@@ -45,7 +45,7 @@ public class BaseDatosCarrito {
     	carrito.add( productoAAgregar );
     }//fin agregar
     
-    //Identacion...
+  
     //BAJA...
     public static void eliminar( Productos productos ){
     	Productos productoActual = null;
@@ -59,8 +59,6 @@ public class BaseDatosCarrito {
     	//Para eliminar datos de una lista, hay una operacion especial.
     	//No se trabaja sobre la lista en si, sino sobre un objeto que se llama
     	//"Iterador" i?Nterador es como un indice 
-    	//Mm... podria verse asi, si.
-    	
     	Iterator<Productos> iterator = carrito.iterator( );
     	//Recorrer la lista
     	//iterator.hasNext es un metodo booleano
@@ -105,7 +103,7 @@ public class BaseDatosCarrito {
     		System.err.println( "No hay productos en el carrito" );
     		return;
     	}
-    	//Por tiempo, vamos a hacerlo bien 
+    	
     	//esto es, en vez de cambiar el producto dentro de la lista,
     	//Eliminaremos el producto original, y agregaremos el producto modificado
     	eliminar( producto );

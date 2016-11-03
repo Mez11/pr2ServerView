@@ -1,5 +1,6 @@
 package com.redes.p2.cliente.view;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -28,6 +29,7 @@ public class CarritoCompra {
 	private JLabel lblIdDelProducto;
 	private JTextField id;
 	private JButton btnModificar;
+	private JButton btnElimina;
 	private JButton btnFinalizarCompra;
 	private JTable productosTable;
 	private String[] columnNames = {"Id",
@@ -60,6 +62,8 @@ public class CarritoCompra {
 		lblCantidadEnEl.setBounds(27, 143, 162, 15);
 		frmCarritoDeCompra.getContentPane().add(lblCantidadEnEl);
 		
+		
+		
 		cantidad = new JTextField();
 		cantidad.setBounds(209, 141, 114, 19);
 		frmCarritoDeCompra.getContentPane().add(cantidad);
@@ -74,7 +78,7 @@ public class CarritoCompra {
 		frmCarritoDeCompra.getContentPane().add(id);
 		id.setColumns(10);
 		
-		btnModificar = new JButton("Modificar");
+		btnModificar = new JButton("Agregar");
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<Productos> productos;
@@ -90,9 +94,9 @@ public class CarritoCompra {
 				
 			}
 		});
-		btnModificar.setBounds(331, 165, 105, 25);
+		btnModificar.setBounds(335, 138, 105, 25);
 		frmCarritoDeCompra.getContentPane().add(btnModificar);
-	
+		//End Modificar == Agregar
 		
 		btnFinalizarCompra = new JButton("Finalizar compra");
 		btnFinalizarCompra.setBounds(35, 234, 162, 25);
@@ -132,6 +136,42 @@ public class CarritoCompra {
 		});
 		btnImprimirReporte.setBounds(209, 234, 162, 25);
 		frmCarritoDeCompra.getContentPane().add(btnImprimirReporte);
+		
+		JButton btnElimina = new JButton("Eliminar");
+		btnElimina.addActionListener(new ActionListener() {
+   			public void actionPerformed(ActionEvent e) {
+   				List<Productos> productos;
+   			 Productos productoActual = null;
+   				Productos productoEliminado = BaseDatosCarrito.getProductoById( 
+   						Integer.parseInt( id.getText( ) ) );
+   				if( productoEliminado == null ){
+   					//no se encontro
+   					return;
+   				}
+   				Iterator<Productos> iterator = ((List<Productos>) productoActual).iterator( );
+   			 while( iterator.hasNext() ){
+   		       //iterator.next() Nos da el objeto en la posicion actual
+   		       productoActual = iterator.next( );
+   		       //Validar si el ID del producto actual es igual al producto especificado
+   		       //if( productoActual.getIdProductos() == productos.get(1) ){
+   		         //Si se encontro, eliminarlo:
+   		         iterator.remove( );
+   		       //}//fin comprobacion ID
+   		     }//Fin del while
+   				
+   				
+   				//getIdProductos
+   				llenarTabla( );
+   				frmCarritoDeCompra.setVisible( true );
+   				
+   			}
+   		});
+		btnElimina.setBounds(335, 165, 105, 25);
+		frmCarritoDeCompra.getContentPane().add(btnElimina);
+		
+		JButton btnCambiar = new JButton("Cambiar");
+		btnCambiar.setBounds(335, 197, 105, 25);
+		frmCarritoDeCompra.getContentPane().add(btnCambiar);
 		llenarTabla( );
 		frmCarritoDeCompra.setVisible( true );
 	}
