@@ -86,6 +86,7 @@ public class RunnerServer {
 		}
 		else{			
 			producto.setExistencias( producto.getExistencias() - cantidadComprada );
+			dao.update( producto );
 			System.out.println( "La nueva cantidad del producto " + producto.getNombre( ) + " es " + cantidadComprada  );
 		}
 	}
