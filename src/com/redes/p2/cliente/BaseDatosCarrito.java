@@ -59,8 +59,6 @@ public class BaseDatosCarrito {
     	//Para eliminar datos de una lista, hay una operacion especial.
     	//No se trabaja sobre la lista en si, sino sobre un objeto que se llama
     	//"Iterador" i?Nterador es como un indice 
-    	//Mm... podria verse asi, si.
-    	
     	Iterator<Productos> iterator = carrito.iterator( );
     	//Recorrer la lista
     	//iterator.hasNext es un metodo booleano

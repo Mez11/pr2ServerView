@@ -58,7 +58,7 @@ public class CatalogoProductos {
 		frmCatalogoDeProductos.getContentPane( ).add( productoPanel );
 		
 		JButton btnVerCarrito = new JButton("Ver Carrito");
-		btnVerCarrito.setBounds(319, 19, 91, 27);
+		btnVerCarrito.setBounds(273, 19, 137, 27);
 		frmCatalogoDeProductos.getContentPane().add(btnVerCarrito);
 		
 		JButton btnSiguiente = new JButton("Siguiente");
@@ -67,7 +67,7 @@ public class CatalogoProductos {
 				siguienteProducto( );
 			}
 		});
-		btnSiguiente.setBounds(319, 58, 96, 27);
+		btnSiguiente.setBounds(273, 58, 142, 27);
 		frmCatalogoDeProductos.getContentPane().add(btnSiguiente);
 		
 		JButton btnAnterior = new JButton("Anterior");
@@ -76,16 +76,16 @@ public class CatalogoProductos {
 				anteriorProducto( );
 			}
 		});
-		btnAnterior.setBounds(319, 97, 96, 27);
+		btnAnterior.setBounds(273, 97, 142, 27);
 		frmCatalogoDeProductos.getContentPane().add(btnAnterior);
 		
-		JButton btnVerDetalle = new JButton("Ver detalle");
+		JButton btnVerDetalle = new JButton("Comprar @.@.!!");
 		btnVerDetalle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				mostrarDetalle( );
 			}
 		});
-		btnVerDetalle.setBounds(319, 136, 96, 27);
+		btnVerDetalle.setBounds(36, 191, 142, 27);
 		frmCatalogoDeProductos.getContentPane().add(btnVerDetalle);
 		
 		btnVerCarrito.addActionListener(new ActionListener(){

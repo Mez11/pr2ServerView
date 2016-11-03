@@ -20,6 +20,7 @@ public class CatalogoDeProductos {
       private ProductoPanel prueba; 
       private  JButton btnSiguiente;
       private  JButton btnAnterior;
+      private  JButton btnComprar;
 
 
 	/**
